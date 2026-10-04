@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#071827">
+<title>ضبط البنزين | نظام إدارة الوقود</title>
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
+
+body{
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
+background:#f3f6f8;
+color:#172633;
+min-height:100vh
+}
+
+button,input,select{
+font:inherit
+}
+
+button{
+cursor:pointer
+}
+
+.app{
+max-width:1200px;
+margin:auto;
+min-height:100vh
+}
+
+/* HEADER */
+
+.header{
+background:linear-gradient(145deg,#061722,#0c3040);
+color:white;
+padding:18px;
+border-radius:0 0 28px 28px;
+box-shadow:0 8px 30px #07182725
+}
+
+.header-inner{
+max-width:1100px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:12px
+}
+
+.brand-icon{
+width:48px;
+height:48px;
+border-radius:15px;
+background:#ffffff15;
+border:1px solid #ffffff20;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px
+}
+
+.brand h1{
+font-size:21px
+}
+
+.brand p{
+font-size:10px;
+color:#b5c8d3;
+margin-top:3px
+}
+
+.header-actions{
+display:flex;
+gap:8px
+}
+
+.icon-btn{
+width:42px;
+height:42px;
+border:0;
+border-radius:13px;
+background:#ffffff12;
+color:white;
+font-size:19px
+}
+
+/* NAV */
+
+.nav{
+max-width:1100px;
+margin:15px auto 0;
+display:flex;
+gap:7px;
+overflow-x:auto;
+padding-bottom:2px
+}
+
+.nav button{
+white-space:nowrap;
+border:0;
+padding:10px 14px;
+border-radius:12px;
+background:#ffffff10;
+color:#d5e2e8;
+font-size:12px
+}
+
+.nav button.active{
+background:white;
+color:#0a3443;
+font-weight:bold
+}
+
+/* MAIN */
+
+main{
+padding:18px
+}
+
+.page{
+display:none;
+max-width:1100px;
+margin:auto
+}
+
+.page.active{
+display:block
+}
+
+.page-title{
+margin:4px 0 18px
+}
+
+.page-title h2{
+font-size:24px
+}
+
+.page-title p{
+color:#7c8a94;
+font-size:12px;
+margin-top:5px
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+margin-bottom:18px
+}
+
+.stat{
+background:white;
+border-radius:20px;
+padding:17px;
+box-shadow:0 5px 22px #1025330a;
+border:1px solid #e7edf0
+}
+
+.stat-top{
+display:flex;
+align-items:center;
+justify-content:space-between
+}
+
+.stat-icon{
+width:40px;
+height:40px;
+border-radius:13px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#eef6f8;
+font-size:20px
+}
+
+.stat-number{
+font-size:24px;
+font-weight:800;
+margin-top:12px
+}
+
+.stat-label{
+font-size:11px;
+color:#82909a;
+margin-top:4px
+}
+
+/* CARDS */
+
+.card{
+background:white;
+border-radius:22px;
+padding:20px;
+border:1px solid #e7edf0;
+box-shadow:0 5px 22px #1025330a;
+margin-bottom:15px
+}
+
+.card-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:17px
+}
+
+.card-title{
+font-size:16px;
+font-weight:800
+}
+
+.card-sub{
+font-size:11px;
+color:#89959e;
+margin-top:4px
+}
+
+/* QUICK */
+
+.quick{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px
+}
+
+.quick button{
+border:1px solid #e1e8eb;
+background:#fafcfd;
+border-radius:17px;
+padding:16px 8px;
+color:#21323d
+}
+
+.quick-icon{
+font-size:26px;
+margin-bottom:8px
+}
+
+.quick span{
+font-size:11px;
+font-weight:bold
+}
+
+/* FORM */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:13px
+}
+
+.field{
+margin-bottom:5px
+}
+
+.field.full{
+grid-column:1/-1
+}
+
+label{
+font-size:11px;
+font-weight:bold;
+display:block;
+margin-bottom:7px;
+color:#40515b
+}
+
+input,select{
+width:100%;
+border:1px solid #dce4e8;
+background:#fbfcfd;
+border-radius:13px;
+padding:13px;
+outline:none;
+font-size:13px;
+color:#172633
+}
+
+input:focus,select:focus{
+border-color:#167b94;
+box-shadow:0 0 0 3px #167b9412;
+background:white
+}
+
+.readonly{
+background:#eef5f7
+}
+
+/* BUTTONS */
+
+.btn{
+border:0;
+border-radius:13px;
+padding:13px 17px;
+font-size:12px;
+font-weight:bold
+}
+
+.btn-primary{
+background:#087b91;
+color:white
+}
+
+.btn-dark{
+background:#102d3a;
+color:white
+}
+
+.btn-light{
+background:#edf2f4;
+color:#3d4e58
+}
+
+.btn-danger{
+background:#fff0f0;
+color:#c83d3d
+}
+
+.btn-success{
+background:#e8f8f0;
+color:#138453
+}
+
+.buttons{
+display:flex;
+gap:9px;
+margin-top:18px
+}
+
+/* TABLE */
+
+.table-wrap{
+overflow-x:auto
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:650px
+}
+
+th{
+font-size:10px;
+color:#87939b;
+text-align:right;
+padding:11px;
+background:#f7f9fa
+}
+
+td{
+padding:12px 11px;
+border-bottom:1px solid #edf1f3;
+font-size:11px
+}
+
+.badge{
+display:inline-block;
+padding:6px 9px;
+border-radius:20px;
+font-size:9px;
+font-weight:bold
+}
+
+.badge-green{
+background:#e7f8ef;
+color:#138453
+}
+
+.badge-red{
+background:#ffeded;
+color:#c53939
+}
+
+.badge-yellow{
+background:#fff5d9;
+color:#967016
+}
+
+.plate{
+font-weight:900;
+font-size:13px;
+letter-spacing:.5px
+}
+
+/* ALERT */
+
+.alert{
+padding:14px;
+border-radius:15px;
+margin-bottom:14px;
+font-size:11px;
+line-height:1.7
+}
+
+.alert-warning{
+background:#fff6dd;
+border:1px solid #f0df9e;
+color:#765d13
+}
+
+.alert-danger{
+background:#fff0f0;
+border:1px solid #f1caca;
+color:#a93636
+}
+
+.alert-success{
+background:#eaf8f1;
+border:1px solid #bfe6d2;
+color:#16754e
+}
+
+/* SEARCH */
+
+.search{
+display:flex;
+gap:8px
+}
+
+.search input{
+flex:1
+}
+
+/* MODAL */
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:#071827aa;
+z-index:100;
+padding:15px;
+align-items:flex-end;
+justify-content:center
+}
+
+.modal.show{
+display:flex
+}
+
+.modal-content{
+background:white;
+width:100%;
+max-width:550px;
+border-radius:25px 25px 0 0;
+padding:22px;
+max-height:92vh;
+overflow:auto
+}
+
+.modal-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px
+}
+
+.close{
+border:0;
+background:#edf1f3;
+width:35px;
+height:35px;
+border-radius:10px
+}
+
+/* RECEIPT */
+
+.receipt{
+border:1px dashed #c9d5da;
+border-radius:16px;
+padding:17px;
+margin-top:14px
+}
+
+.receipt-head{
+text-align:center;
+padding-bottom:14px;
+border-bottom:1px dashed #d4dde0
+}
+
+.receipt-head h3{
+font-size:18px
+}
+
+.receipt-row{
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid #eef1f2;
+font-size:11px
+}
+
+.receipt-row span:first-child{
+color:#82909a
+}
+
+.total{
+font-size:18px;
+font-weight:900
+}
+
+/* STATION */
+
+.station{
+display:flex;
+align-items:center;
+gap:12px;
+padding:13px;
+border:1px solid #e4eaed;
+border-radius:15px;
+margin-bottom:9px
+}
+
+.station-icon{
+width:42px;
+height:42px;
+border-radius:12px;
+background:#edf6f7;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px
+}
+
+.station-info{
+flex:1
+}
+
+.station-info strong{
+font-size:12px
+}
+
+.station-info p{
+font-size:10px;
+color:#8a969d;
+margin-top:3px
+}
+
+/* EMPTY */
+
+.empty{
+text-align:center;
+padding:35px 15px;
+color:#89959e;
+font-size:12px
+}
+
+.empty-icon{
+font-size:38px;
+margin-bottom:8px
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:20px;
+color:#89959e;
+font-size:10px
+}
+
+/* DARK MODE */
+
+body.dark{
+background:#0b141b;
+color:#e8eef1
+}
+
+body.dark .card,
+body.dark .stat,
+body.dark .modal-content{
+background:#122029;
+border-color:#263943
+}
+
+body.dark input,
+body.dark select{
+background:#0d1a21;
+border-color:#2b3d46;
+color:#e8eef1
+}
+
+body.dark .quick button{
+background:#102028;
+border-color:#293b44;
+color:#e8eef1
+}
+
+body.dark th{
+background:#0d1a21
+}
+
+body.dark td{
+border-color:#26353d
+}
+
+body.dark .btn-light{
+background:#25343c;
+color:#e5edef
+}
+
+body.dark .card-sub,
+body.dark .stat-label{
+color:#93a4ad
+}
+
+/* MOBILE */
+
+@media(max-width:750px){
+
+.stats{
+grid-template-columns:repeat(2,1fr)
+}
+
+.quick{
+grid-template-columns:repeat(2,1fr)
+}
+
+.grid{
+grid-template-columns:1fr
+}
+
+.field.full{
+grid-column:auto
+}
+
+.header{
+border-radius:0 0 23px 23px
+}
+
+.page-title h2{
+font-size:21px
+}
+
+}
+
+@media(min-width:751px){
+
+.modal{
+align-items:center
+}
+
+.modal-content{
+border-radius:25px
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+<div class="header-inner">
+
+<div class="brand">
+
+<div class="brand-icon">⛽</div>
+
+<div>
+<h1>ضبط البنزين</h1>
+<p>نظام إدارة وتوزيع الوقود</p>
+</div>
+
+</div>
+
+<div class="header-actions">
+
+<button class="icon-btn" onclick="toggleDark()" id="darkBtn">
+🌙
+</button>
+
+</div>
+
+</div>
+
+<nav class="nav">
+
+<button class="active" onclick="showPage('dashboard',this)">
+الرئيسية
+</button>
+
+<button onclick="showPage('fuel',this)">
+تعبئة جديدة
+</button>
+
+<button onclick="showPage('vehicles',this)">
+المركبات
+</button>
+
+<button onclick="showPage('records',this)">
+السجل
+</button>
+
+<button onclick="showPage('stations',this)">
+المحطات
+</button>
+
+</nav>
+
+</header>
+
+
+<main>
+
+
+<!-- DASHBOARD -->
+
+<section class="page active" id="dashboard">
+
+<div class="page-title">
+
+<h2>لوحة التحكم</h2>
+
+<p id="todayText"></p>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<div class="stat-top">
+
+<div>
+<div class="stat-label">عمليات اليوم</div>
+</div>
+
+<div class="stat-icon">🚗</div>
+
+</div>
+
+<div class="stat-number" id="statOperations">0</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-top">
+
+<div>
+<div class="stat-label">اللترات المصروفة</div>
+</div>
+
+<div class="stat-icon">⛽</div>
+
+</div>
+
+<div class="stat-number" id="statLiters">0</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-top">
+
+<div>
+<div class="stat-label">الإيرادات</div>
+</div>
+
+<div class="stat-icon">💰</div>
+
+</div>
+
+<div class="stat-number" id="statMoney">0</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-top">
+
+<div>
+<div class="stat-label">مركبات اليوم</div>
+</div>
+
+<div class="stat-icon">🛻</div>
+
+</div>
+
+<div class="stat-number" id="statVehicles">0</div>
+
+</div>
+
+</div>
+
+
+<div id="dashboardAlert"></div>
+
+
+<div class="card">
+
+<div class="card-header">
+
+<div>
+<div class="card-title">إجراءات سريعة</div>
+<div class="card-sub">الوصول إلى أهم الخدمات</div>
+</div>
+
+</div>
+
+<div class="quick">
+
+<button onclick="showPage('fuel')">
+<div class="quick-icon">⛽</div>
+<span>تسجيل تعبئة</span>
+</button>
+
+<button onclick="showPage('vehicles')">
+<div class="quick-icon">🚗</div>
+<span>بحث عن مركبة</span>
+</button>
+
+<button onclick="showPage('records')">
+<div class="quick-icon">📋</div>
+<span>سجل العمليات</span>
+</button>
+
+<button onclick="openReport()">
+<div class="quick-icon">📊</div>
+<span>التقارير</span>
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-header">
+
+<div>
+<div class="card-title">آخر العمليات</div>
+<div class="card-sub">أحدث عمليات تعبئة الوقود</div>
+</div>
+
+<button class="btn btn-light" onclick="showPage('records')">
+عرض الكل
+</button>
+
+</div>
+
+<div id="recentRecords"></div>
+
+</div>
+
+</section>
+
+
+<!-- FUEL -->
+
+<section class="page" id="fuel">
+
+<div class="page-title">
+
+<h2>تسجيل تعبئة جديدة</h2>
+
+<p>أدخل بيانات عملية صرف الوقود</p>
+
+</div>
+
+
+<div id="fuelWarning"></div>
+
+
+<div class="card">
+
+<div class="card-header">
+
+<div>
+<div class="card-title">بيانات المركبة</div>
+<div class="card-sub">المعلومات المستخدمة للتحقق من التعبئة</div>
+</div>
+
+</div>
+
+
+<div class="grid">
+
+<div class="field">
+
+<label>رقم اللوحة</label>
+
+<input
+id="plate"
+placeholder="مثال: خ ب 12345"
+oninput="checkPlate()"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>نوع المركبة</label>
+
+<select id="vehicleType">
+
+<option value="">اختر النوع</option>
+<option>سيارة خاصة</option>
+<option>تاكسي</option>
+<option>حافلة</option>
+<option>شاحنة</option>
+<option>دراجة نارية</option>
+<option>مركبة حكومية</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>اسم صاحب المركبة</label>
+
+<input id="owner" placeholder="الاسم الكامل">
+
+</div>
+
+
+<div class="field">
+
+<label>الرقم الوطني</label>
+
+<input
+id="ownerId"
+inputmode="numeric"
+placeholder="الرقم الوطني"
+>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-header">
+
+<div>
+
+<div class="card-title">تفاصيل الوقود</div>
+
+<div class="card-sub">أدخل الكمية والسعر</div>
+
+</div>
+
+</div>
+
+
+<div class="grid">
+
+<div class="field">
+
+<label>نوع الوقود</label>
+
+<select id="fuelType">
+
+<option>بنزين</option>
+<option>جازولين</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>عدد اللترات</label>
+
+<input
+id="liters"
+type="number"
+min="1"
+step="0.1"
+placeholder="مثال: 20"
+oninput="calculateTotal()"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>سعر اللتر</label>
+
+<input
+id="price"
+type="number"
+min="0"
+step="0.01"
+placeholder="السعر"
+oninput="calculateTotal()"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>الإجمالي</label>
+
+<input
+id="total"
+class="readonly"
+readonly
+placeholder="0"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>المحطة</label>
+
+<select id="station">
+
+<option>محطة النيل</option>
+<option>محطة المدينة</option>
+<option>محطة المطار</option>
+<option>محطة السلام</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>طريقة الدفع</label>
+
+<select id="payment">
+
+<option>نقدي</option>
+<option>بنك</option>
+<option>محفظة إلكترونية</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="buttons">
+
+<button class="btn btn-light" onclick="clearFuelForm()">
+مسح
+</button>
+
+<button class="btn btn-primary" onclick="submitFuel()">
+✓ تسجيل عملية التعبئة
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- VEHICLES -->
+
+<section class="page" id="vehicles">
+
+<div class="page-title">
+
+<h2>البحث عن مركبة</h2>
+
+<p>تحقق من سجل التعبئة قبل صرف الوقود</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="search">
+
+<input
+id="vehicleSearch"
+placeholder="أدخل رقم اللوحة"
+>
+
+<button class="btn btn-primary" onclick="searchVehicle()">
+بحث
+</button>
+
+</div>
+
+</div>
+
+
+<div id="vehicleResult"></div>
+
+</section>
+
+
+<!-- RECORDS -->
+
+<section class="page" id="records">
+
+<div class="page-title">
+
+<h2>سجل العمليات</h2>
+
+<p>جميع عمليات صرف الوقود المسجلة</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-header">
+
+<div>
+
+<div class="card-title">السجل</div>
+
+<div class="card-sub" id="recordsCount">
+0 عملية
+</div>
+
+</div>
+
+<button class="btn btn-light" onclick="exportData()">
+تصدير
+</button>
+
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>اللوحة</th>
+<th>الوقود</th>
+<th>اللترات</th>
+<th>المبلغ</th>
+<th>الوقت</th>
+<th>الحالة</th>
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody id="recordsTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- STATIONS -->
+
+<section class="page" id="stations">
+
+<div class="page-title">
+
+<h2>المحطات</h2>
+
+<p>إدارة ومراقبة محطات الوقود</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-header">
+
+<div>
+
+<div class="card-title">المحطات المسجلة</div>
+
+<div class="card-sub">حالة المحطات</div>
+
+</div>
+
+<button class="btn btn-primary" onclick="addStation()">
++ محطة
+</button>
+
+</div>
+
+
+<div id="stationsList"></div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+ضبط البنزين © 2026 — نموذج تجريبي لإدارة الوقود
+
+</footer>
+
+</div>
+
+
+<!-- RECEIPT MODAL -->
+
+<div class="modal" id="receiptModal">
+
+<div class="modal-content">
+
+<div class="modal-head">
+
+<strong>إيصال التعبئة</strong>
+
+<button class="close" onclick="closeModal()">
+✕
+</button>
+
+</div>
+
+<div id="receiptContent"></div>
+
+<button
+class="btn btn-primary"
+style="width:100%;margin-top:15px"
+onclick="closeModal()"
+>
+إغلاق
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const KEY="fuelControlRecords";
+
+let records=JSON.parse(localStorage.getItem(KEY)||"[]");
+
+
+function save(){
+
+localStorage.setItem(KEY,JSON.stringify(records));
+
+}
+
+
+function showPage(page,button){
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active")
+});
+
+document.getElementById(page).classList.add("active");
+
+document.querySelectorAll(".nav button").forEach(b=>{
+b.classList.remove("active")
+});
+
+if(button){
+button.classList.add("active")
+}else{
+
+const map={
+dashboard:0,
+fuel:1,
+vehicles:2,
+records:3,
+stations:4
+};
+
+const buttons=document.querySelectorAll(".nav button");
+
+if(map[page]!==undefined){
+buttons[map[page]].classList.add("active");
+}
+
+}
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+renderAll();
+
+}
+
+
+function today(){
+
+const d=new Date();
+
+return d.toLocaleDateString("en-CA");
+
+}
+
+
+function timeNow(){
+
+return new Date().toLocaleTimeString("ar-SD",{
+hour:"2-digit",
+minute:"2-digit"
+});
+
+}
+
+
+function calculateTotal(){
+
+const liters=parseFloat(document.getElementById("liters").value)||0;
+
+const price=parseFloat(document.getElementById("price").value)||0;
+
+document.getElementById("total").value=
+(liters*price).toFixed(2);
+
+}
+
+
+function checkPlate(){
+
+const plate=document.getElementById("plate").value.trim();
+
+const warning=document.getElementById("fuelWarning");
+
+if(!plate){
+
+warning.innerHTML="";
+
+return;
+}
+
+const already=records.some(r=>
+r.plate.toLowerCase()===plate.toLowerCase() &&
+r.date===today()
+);
+
+if(already){
+
+warning.innerHTML=`
+
+<div class="alert alert-danger">
+
+🚫 <strong>تنبيه:</strong>
+هذه المركبة مسجلة بأنها استلمت وقودًا اليوم.
+لا يُسمح بتسجيل تعبئة أخرى حسب قواعد النظام التجريبي.
+
+</div>
+
+`;
+
+}else{
+
+warning.innerHTML=`
+
+<div class="alert alert-success">
+
+✓ لم يتم العثور على تعبئة سابقة لهذه اللوحة اليوم.
+
+</div>
+
+`;
+
+}
+
+}
+
+
+function submitFuel(){
+
+const plate=document.getElementById("plate").value.trim();
+
+const type=document.getElementById("vehicleType").value;
+
+const owner=document.getElementById("owner").value.trim();
+
+const ownerId=document.getElementById("ownerId").value.trim();
+
+const fuel=document.getElementById("fuelType").value;
+
+const liters=parseFloat(document.getElementById("liters").value);
+
+const price=parseFloat(document.getElementById("price").value);
+
+const total=liters*price;
+
+const station=document.getElementById("station").value;
+
+const payment=document.getElementById("payment").value;
+
+
+if(!plate){
+
+alert("أدخل رقم اللوحة.");
+
+return;
+
+}
+
+if(!type){
+
+alert("اختر نوع المركبة.");
+
+return;
+
+}
+
+if(!owner){
+
+alert("أدخل اسم صاحب المركبة.");
+
+return;
+
+}
+
+if(!liters || liters<=0){
+
+alert("أدخل عدد اللترات.");
+
+return;
+
+}
+
+if(!price || price<0){
+
+alert("أدخل سعر اللتر.");
+
+return;
+
+}
+
+
+const duplicate=records.find(r=>
+r.plate.toLowerCase()===plate.toLowerCase() &&
+r.date===today()
+);
+
+if(duplicate){
+
+document.getElementById("fuelWarning").innerHTML=`
+
+<div class="alert alert-danger">
+
+🚫 <strong>تم رفض العملية</strong><br>
+
+المركبة ${escapeHTML(plate)}
+مسجلة مسبقًا بأنها استلمت الوقود اليوم.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+const record={
+
+id:"F-"+Date.now(),
+
+plate:plate,
+
+vehicleType:type,
+
+owner:owner,
+
+ownerId:ownerId,
+
+fuel:fuel,
+
+liters:liters,
+
+price:price,
+
+total:total,
+
+station:station,
+
+payment:payment,
+
+date:today(),
+
+time:timeNow(),
+
+status:"مقبولة"
+
+};
+
+
+records.unshift(record);
+
+save();
+
+showReceipt(record);
+
+clearFuelForm();
+
+renderAll();
+
+}
+
+
+function clearFuelForm(){
+
+[
+"plate",
+"owner",
+"ownerId",
+"liters",
+"price",
+"total"
+].forEach(id=>{
+document.getElementById(id).value="";
+});
+
+document.getElementById("vehicleType").value="";
+
+document.getElementById("fuelWarning").innerHTML="";
+
+}
+
+
+function showReceipt(r){
+
+const modal=document.getElementById("receiptModal");
+
+const content=document.getElementById("receiptContent");
+
+content.innerHTML=`
+
+<div class="receipt">
+
+<div class="receipt-head">
+
+<h3>⛽ ضبط البنزين</h3>
+
+<p style="font-size:10px;color:#82909a;margin-top:4px">
+إيصال تعبئة وقود
+</p>
+
+</div>
+
+<div class="receipt-row">
+<span>رقم العملية</span>
+<strong>${escapeHTML(r.id)}</strong>
+</div>
+
+<div class="receipt-row">
+<span>رقم اللوحة</span>
+<strong>${escapeHTML(r.plate)}</strong>
+</div>
+
+<div class="receipt-row">
+<span>نوع المركبة</span>
+<span>${escapeHTML(r.vehicleType)}</span>
+</div>
+
+<div class="receipt-row">
+<span>صاحب المركبة</span>
+<span>${escapeHTML(r.owner)}</span>
+</div>
+
+<div class="receipt-row">
+<span>نوع الوقود</span>
+<span>${escapeHTML(r.fuel)}</span>
+</div>
+
+<div class="receipt-row">
+<span>الكمية</span>
+<strong>${r.liters} لتر</strong>
+</div>
+
+<div class="receipt-row">
+<span>سعر اللتر</span>
+<span>${r.price}</span>
+</div>
+
+<div class="receipt-row">
+<span>المحطة</span>
+<span>${escapeHTML(r.station)}</span>
+</div>
+
+<div class="receipt-row">
+<span>التاريخ</span>
+<span>${r.date}</span>
+</div>
+
+<div class="receipt-row">
+<span>الوقت</span>
+<span>${r.time}</span>
+</div>
+
+<div class="receipt-row">
+<span>الإجمالي</span>
+<span class="total">${r.total.toFixed(2)}</span>
+</div>
+
+</div>
+
+`;
+
+modal.classList.add("show");
+
+}
+
+
+function closeModal(){
+
+document.getElementById("receiptModal")
+.classList.remove("show");
+
+}
+
+
+function searchVehicle(){
+
+const q=
+document.getElementById("vehicleSearch").value
+.trim()
+.toLowerCase();
+
+const result=
+document.getElementById("vehicleResult");
+
+if(!q){
+
+alert("أدخل رقم اللوحة.");
+
+return;
+
+}
+
+const found=records.filter(r=>
+r.plate.toLowerCase().includes(q)
+);
+
+if(!found.length){
+
+result.innerHTML=`
+
+<div class="card">
+
+<div class="empty">
+
+<div class="empty-icon">🔎</div>
+
+لم يتم العثور على عمليات لهذه المركبة.
+
+</div>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+const last=found[0];
+
+result.innerHTML=`
+
+<div class="card">
+
+<div class="card-header">
+
+<div>
+
+<div class="card-title">
+بيانات المركبة
+</div>
+
+<div class="card-sub">
+${escapeHTML(last.plate)}
+</div>
+
+</div>
+
+<span class="badge badge-red">
+${found.length} عملية
+</span>
+
+</div>
+
+<div class="grid">
+
+<div>
+<label>صاحب المركبة</label>
+<p>${escapeHTML(last.owner)}</p>
+</div>
+
+<div>
+<label>نوع المركبة</label>
+<p>${escapeHTML(last.vehicleType)}</p>
+</div>
+
+<div>
+<label>آخر تعبئة</label>
+<p>${last.date} — ${last.time}</p>
+</div>
+
+<div>
+<label>آخر كمية</label>
+<p>${last.liters} لتر</p>
+</div>
+
+</div>
+
+<hr style="border:0;border-top:1px solid #edf1f3;margin:17px 0">
+
+<strong style="font-size:12px">
+سجل هذه المركبة
+</strong>
+
+<div style="margin-top:10px">
+
+${found.map(r=>`
+
+<div class="review-row" style="
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid #edf1f3;
+font-size:11px">
+
+<span>
+${r.date} ${r.time}
+</span>
+
+<strong>
+${r.liters} لتر
+</strong>
+
+</div>
+
+`).join("")}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function renderRecords(){
+
+const tbody=document.getElementById("recordsTable");
+
+document.getElementById("recordsCount").textContent=
+records.length+" عملية";
+
+if(!records.length){
+
+tbody.innerHTML=`
+
+<tr>
+<td colspan="7">
+
+<div class="empty">
+
+<div class="empty-icon">📋</div>
+لا توجد عمليات حتى الآن.
+
+</div>
+
+</td>
+</tr>
+
+`;
+
+return;
+
+}
+
+
+tbody.innerHTML=records.map(r=>`
+
+<tr>
+
+<td>
+<div class="plate">${escapeHTML(r.plate)}</div>
+</td>
+
+<td>${escapeHTML(r.fuel)}</td>
+
+<td>${r.liters}</td>
+
+<td>${r.total.toFixed(2)}</td>
+
+<td>${r.date}<br>${r.time}</td>
+
+<td>
+<span class="badge badge-green">
+${escapeHTML(r.status)}
+</span>
+</td>
+
+<td>
+
+<button
+class="btn btn-light"
+style="padding:7px 9px"
+onclick="showReceiptById('${r.id}')"
+>
+🧾
+</button>
+
+</td>
+
+</tr>
+
+`).join("");
+
+}
+
+
+function showReceiptById(id){
+
+const r=records.find(x=>x.id===id);
+
+if(r){
+showReceipt(r);
+}
+
+}
+
+
+function renderDashboard(){
+
+const todayRecords=
+records.filter(r=>r.date===today());
+
+const liters=
+todayRecords.reduce((sum,r)=>sum+r.liters,0);
+
+const money=
+todayRecords.reduce((sum,r)=>sum+r.total,0);
+
+const vehicles=
+new Set(todayRecords.map(r=>r.plate.toLowerCase()));
+
+document.getElementById("statOperations").textContent=
+todayRecords.length;
+
+document.getElementById("statLiters").textContent=
+liters.toFixed(1);
+
+document.getElementById("statMoney").textContent=
+money.toFixed(2);
+
+document.getElementById("statVehicles").textContent=
+vehicles.size;
+
+document.getElementById("todayText").textContent=
+"اليوم: "+new Date().toLocaleDateString("ar-SD");
+
+
+const recent=document.getElementById("recentRecords");
+
+if(!todayRecords.length){
+
+recent.innerHTML=`
+
+<div class="empty">
+
+<div class="empty-icon">⛽</div>
+
+لا توجد عمليات تعبئة اليوم.
+
+</div>
+
+`;
+
+}else{
+
+recent.innerHTML=`
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>اللوحة</th>
+<th>اللترات</th>
+<th>المبلغ</th>
+<th>الوقت</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+${todayRecords.slice(0,5).map(r=>`
+
+<tr>
+
+<td>
+<div class="plate">
+${escapeHTML(r.plate)}
+</div>
+</td>
+
+<td>${r.liters} لتر</td>
+
+<td>${r.total.toFixed(2)}</td>
+
+<td>${r.time}</td>
+
+</tr>
+
+`).join("")}
+
+</tbody>
+
+</table>
+
+</div>
+
+`;
+
+}
+
+
+const alertBox=document.getElementById("dashboardAlert");
+
+if(todayRecords.length>=10){
+
+alertBox.innerHTML=`
+
+<div class="alert alert-warning">
+
+📊 تم تسجيل ${todayRecords.length}
+عملية تعبئة اليوم.
+
+</div>
+
+`;
+
+}else{
+
+alertBox.innerHTML="";
+
+}
+
+}
+
+
+function renderStations(){
+
+const stations=[
+["محطة النيل","نشطة","بنزين + جازولين"],
+["محطة المدينة","نشطة","بنزين"],
+["محطة المطار","نشطة","بنزين + جازولين"],
+["محطة السلام","تحت المراقبة","جازولين"]
+];
+
+document.getElementById("stationsList").innerHTML=
+stations.map(s=>`
+
+<div class="station">
+
+<div class="station-icon">⛽</div>
+
+<div class="station-info">
+
+<strong>${s[0]}</strong>
+
+<p>${s[2]}</p>
+
+</div>
+
+<span class="badge ${
+s[1]==="نشطة"
+?"badge-green"
+:"badge-yellow"
+}">
+${s[1]}
+</span>
+
+</div>
+
+`).join("");
+
+}
+
+
+function addStation(){
+
+const name=prompt("أدخل اسم محطة الوقود:");
+
+if(!name) return;
+
+alert(
+"تمت إضافة المحطة \""+
+name+
+"\" إلى النموذج التجريبي."
+);
+
+renderStations();
+
+}
+
+
+function openReport(){
+
+const todayRecords=
+records.filter(r=>r.date===today());
+
+const liters=
+todayRecords.reduce((s,r)=>s+r.liters,0);
+
+const money=
+todayRecords.reduce((s,r)=>s+r.total,0);
+
+alert(
+
+"تقرير اليوم\n\n"+
+"العمليات: "+todayRecords.length+
+"\nاللترات: "+liters.toFixed(1)+
+"\nالإيرادات: "+money.toFixed(2)
+
+);
+
+}
+
+
+function exportData(){
+
+if(!records.length){
+
+alert("لا توجد بيانات للتصدير.");
+
+return;
+
+}
+
+let csv=
+"اللوحة,نوع المركبة,الوقود,اللترات,السعر,الإجمالي,المحطة,التاريخ,الوقت\n";
+
+records.forEach(r=>{
+
+csv+=
+[
+r.plate,
+r.vehicleType,
+r.fuel,
+r.liters,
+r.price,
+r.total,
+r.station,
+r.date,
+r.time
+]
+.map(v=>`"${String(v).replaceAll('"','""')}"`)
+.join(",")
++"\n";
+
+});
+
+
+const blob=new Blob(
+["\ufeff"+csv],
+{type:"text/csv;charset=utf-8"}
+);
+
+const url=URL.createObjectURL(blob);
+
+const a=document.createElement("a");
+
+a.href=url;
+
+a.download="fuel-records.csv";
+
+a.click();
+
+URL.revokeObjectURL(url);
+
+}
+
+
+function toggleDark(){
+
+document.body.classList.toggle("dark");
+
+const dark=
+document.body.classList.contains("dark");
+
+localStorage.setItem(
+"fuelDark",
+dark?"1":"0"
+);
+
+document.getElementById("darkBtn").textContent=
+dark?"☀️":"🌙";
+
+}
+
+
+function escapeHTML(text){
+
+return String(text)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+function renderAll(){
+
+renderDashboard();
+
+renderRecords();
+
+renderStations();
+
+}
+
+
+if(localStorage.getItem("fuelDark")==="1"){
+
+document.body.classList.add("dark");
+
+document.getElementById("darkBtn").textContent="☀️";
+
+}
+
+
+renderAll();
+
+</script>
+
+</body>
+</html>
